@@ -132,7 +132,7 @@
     <value>C:\Sejal\MVP\marsframework-master\MarsFramework\TestReports\Screenshots\Reports</value>
   </data>
   <data name="ReportXMLPath" xml:space="preserve">
-    <value>C:\Sejal\MVP\marsframework-master\MarsFramework\TestReports\Screenshots\ReportXMLPath</value>
+    <value>C:\Sejal\MVP\marsframework-master\MarsFramework\Config\XMLFile.xml</value>
   </data>
   <data name="ScreenShotPath" xml:space="preserve">
     <value>C:\Sejal\MVP\marsframework-master\MarsFramework\TestReports\Screenshots\SejalScreenShots</value>

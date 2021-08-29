@@ -3,6 +3,9 @@ using MarsFramework.Config;
 using MarsFramework.Pages;
 using static MarsFramework.Global.GlobalDefinitions;
 using System.Threading;
+using RelevantCodes.ExtentReports;
+
+
 namespace MarsFramework
 {
     public class Program
@@ -13,27 +16,29 @@ namespace MarsFramework
         {
 
            
-                [Test]
+                [Test,Order(1)]
+                
                 public void AddShareSkillTest()
                 {
                     ShareSkill shareSkillobj = new ShareSkill();
                     shareSkillobj.EnterShareSkill();
                     Thread.Sleep(5000);
-
+               
                 }
-                [Test]
+                [Test,Order(3)]
                 public void ViewRecord()
                 {
                     ManageListings manageListingsobj = new ManageListings();
                     manageListingsobj.ViewManageListings();
                 }
-                [Test]
+                [Test,Order(4)]
                 public void DeleteRecord()
                 {
                     ManageListings manageListingsobj = new ManageListings();
                     manageListingsobj.DeleteManageListing();
                 }
-                [Test]
+                [Test ,Order(2)]
+
                 public void EditRecord()
                 {
                     ManageListings manageListingsObj = new ManageListings();

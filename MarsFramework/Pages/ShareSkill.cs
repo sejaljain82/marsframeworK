@@ -9,7 +9,9 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-//using AutoItX3Lib;
+using AutoItX3Lib;
+using RelevantCodes.ExtentReports;
+using static MarsFramework.Global.Base;
 
 namespace MarsFramework.Pages
 {
@@ -110,9 +112,13 @@ namespace MarsFramework.Pages
         int Count;
         internal void EnterShareSkill()
         {
+            // Entry for Extent Report 
+            test = extent.StartTest("Start Adding Record");
             try
-            {
-                wait(5);
+            { 
+             
+
+            wait(5);
                 // Ckick on Share skills Button
                 ShareSkillButton.Click();
                 wait(5);
@@ -178,7 +184,8 @@ namespace MarsFramework.Pages
                 Starttime.ElementAt(1).SendKeys(ExcelLib.ReadData(2, "Starttime"));
 
                 Endtime.ElementAt(1).SendKeys(ExcelLib.ReadData(2, "Endtime"));
-                //
+
+                //Select the option Skill Exchange or Credit
                 if (ExcelLib.ReadData(2, "SkillTrade") == "Skill-exchange")
                 {
                     SkillTradeOption.Click();
@@ -192,15 +199,20 @@ namespace MarsFramework.Pages
                     CreditAmount.SendKeys(ExcelLib.ReadData(2, "Credit"));
                 }
 
-              /*  WorkSample.Click();
-               AutoItX3 autoWorkSampleObj = new AutoItX3();
-                autoWorkSampleObj.WinActivate("Open");
-                Thread.Sleep(1000);
-                autoWorkSampleObj.Send(ExcelLib.ReadData(2, "WorkSamples"));
-                Thread.Sleep(1000);
-                autoWorkSampleObj.Send("{ENTER}");
-                Thread.Sleep(3000);*/
+                //click on '+' Icon upload the sample
+                WorkSample.Click();
 
+                //Create AutoIt object to navicate to the file user want to upload 
+                AutoItX3 autoWorkSampleObj = new AutoItX3();
+                  autoWorkSampleObj.WinActivate("Open");
+                  Thread.Sleep(1000);
+
+                //Select the file to be uploaded
+                autoWorkSampleObj.Send(ExcelLib.ReadData(2, "WorkSamples"));
+                  Thread.Sleep(1000);
+                  autoWorkSampleObj.Send("{ENTER}");
+                  Thread.Sleep(3000);
+                //Select the option between Active or Hidden
                 if (ExcelLib.ReadData(2, "Active") == "Active")
 
                 {
@@ -220,13 +232,20 @@ namespace MarsFramework.Pages
             }
             wait(5);
 
+            //Check if the record is saved 
             IWebElement MLtitel = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/h2"));
             if (MLtitel.Text == "Manage Listings")
             {
                 Assert.Pass("Record Added");
-
+                // Entry for Extent Report 
+                test.Log(LogStatus.Pass, "Test Pass");
             }
-            else { Assert.Fail("Failed to Add Record"); }
+            else
+            {
+                Assert.Fail("Failed to Add Record");
+                // Entry for Extent Report 
+                test.Log(LogStatus.Fail, "Test Fail");
+            }
             Global.GlobalDefinitions.wait(5);
             Thread.Sleep(2000);
 
@@ -235,6 +254,9 @@ namespace MarsFramework.Pages
 
         internal void EditShareSkill()
         {
+            // Entry for Extent Report 
+            test = extent.StartTest("Start Editing Record");
+            
             try
             {
                 wait(5);
@@ -298,7 +320,8 @@ namespace MarsFramework.Pages
                 Starttime.ElementAt(5).SendKeys(ExcelLib.ReadData(5, "Starttime"));
                 Thread.Sleep(1500);
                 Endtime.ElementAt(5).SendKeys(ExcelLib.ReadData(5, "Endtime"));
-                //
+
+                //Select the option Skill Exchange or Credit
                 if (ExcelLib.ReadData(5, "SkillTrade") == "Skill-exchange")
                 {
                     SkillTradeOption.Click();
@@ -311,16 +334,21 @@ namespace MarsFramework.Pages
                     Credit.Click();
                     CreditAmount.SendKeys(ExcelLib.ReadData(5, "Credit"));
                 }
+                
+                //click on '+' Icon upload the sample
+                WorkSample.Click();
 
-               /* WorkSample.Click();
+                //Create AutoIt object to navicate to the file user want to upload 
                 AutoItX3 autoWorkSampleObj = new AutoItX3();
                 autoWorkSampleObj.WinActivate("Open");
                 Thread.Sleep(1500);
+                //Select the file to be uploaded
                 autoWorkSampleObj.Send(ExcelLib.ReadData(5, "WorkSamples"));
                 Thread.Sleep(1500);
                 autoWorkSampleObj.Send("{ENTER}");
-                Thread.Sleep(3000);*/
+                Thread.Sleep(3000);
 
+                //Select the option between Active or Hidden
                 if (ExcelLib.ReadData(5, "Active") == "Active")
 
                 {
@@ -331,7 +359,7 @@ namespace MarsFramework.Pages
                     ActiveOption1.Click();
                 }
 
-
+                //Click on save button to save the Edited record
                 Save.Click();
             }
             catch
@@ -339,13 +367,21 @@ namespace MarsFramework.Pages
                 Assert.Fail("Failed to Edit the Record");
             }
             Thread.Sleep(2000);
+            //Check if the edited record is saved 
             IWebElement MLtitel = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/h2"));
             if (MLtitel.Text == "Manage Listings")
             {
                 Assert.Pass("Record Edited");
+                // Entry for Extent Report 
+                test.Log(LogStatus.Pass, "Test Pass");
 
             }
-            else { Assert.Fail("Failed to Edit Record"); }
+            else
+            {
+                Assert.Fail("Failed to Edit Record");
+                // Entry for Extent Report 
+                test.Log(LogStatus.Fail, "Test Fail");
+            }
 
         }
     }
